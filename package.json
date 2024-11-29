@@ -1,0 +1,17 @@
+{
+  "name": "expenseapi",
+  "version": "1.0.0",
+  "description": "API to manage camp",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Duane Gero",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.1",
+    "nodemon": "^3.1.7",
+    "pg": "^8.13.1"
+  }
+}
