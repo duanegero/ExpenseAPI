@@ -40,7 +40,7 @@ This is a backend API to handle deposit and expense requests
 
 ## Usage
 
-Once the server is running you can interact with the API through the available endpoints. Here is an an example of how to add a new expense with `/expenses` POST endpoint using Postman or any HTTP client:
+Once the server is running you can interact with the API through the available endpoints. Here is an example of how to add a new expense with `/expenses` POST endpoint using Postman or any HTTP client:
 
 ### Example Request (POST `/expenses`)
 
