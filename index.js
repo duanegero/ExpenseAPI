@@ -6,12 +6,14 @@ const PORT = process.env.PORT || 3001; //setting port number for server
 //setting variables to handle routes in API?
 const moneyInRoute = require("./routes/income");
 const moneyOutRoute = require("./routes/expenses");
+const supportRoute = require("./routes/support");
 
 app.use(express.json()); //middleware to parse and handle json
 app.use(cors()); //enable cors for all routes
 
 app.use("/income", moneyInRoute);
 app.use("/expenses", moneyOutRoute);
+app.use("/support", supportRoute);
 
 app.get("/", (req, res) => {
   res.send("Welcome To Expense API");
