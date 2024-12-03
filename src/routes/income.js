@@ -4,13 +4,19 @@ const router = express.Router();
 const pool = require("../db");
 const { getCurrentBalance } = require("../helper_functions/getCurrentBalance");
 
+const {
+  getAllFromIncome,
+  postIncome,
+  putIncome,
+  getIncomeById,
+} = require("../helper_functions/incomeServices");
+
 //defining a route for GET URL
 router.get("/", async (req, res) => {
   //Start try catch
   try {
-    //sending a query, making varible to handle
-    const result = await pool.query("SELECT * FROM income ORDER BY incomeid");
-
+    //calling function from for services
+    const result = await getAllFromIncome();
     //calling get current balance function
     const currentBalance = await getCurrentBalance();
 
@@ -40,25 +46,8 @@ router.post("/", async (req, res) => {
   }
 
   try {
-    //sending query find max id's in table
-    const maxId = await pool.query(
-      "SELECT COALESCE(MAX(incomeid), 0) AS max_id FROM income;"
-    );
-
-    //setting new id to max +1
-    const newId = maxId.rows[0].max_id + 1;
-
-    //creating a query variable to use when send queries
-    const query = `INSERT INTO income(incomeid, source, amount, description)
-            VALUES ($1, $2, $3, $4 )
-            RETURNING *;`;
-    //sending a query with query variable and info from request body
-    const result = await pool.query(query, [
-      newId,
-      source,
-      amount,
-      description,
-    ]);
+    //calling function from for services
+    const result = await postIncome(source, amount, description);
 
     //calling get current balance function
     const currentBalance = await getCurrentBalance();
@@ -86,18 +75,8 @@ router.put("/:id", async (req, res) => {
   const { source, amount, description } = req.body;
 
   try {
-    //creating a query variable to use when send queries
-    const query = `UPDATE income
-        SET source = $1, amount = $2, description = $3, created_at = CURRENT_TIMESTAMP
-        WHERE incomeid = $4
-        RETURNING *;`;
-    //sending a query with query variable and info from request body
-    const result = await pool.query(query, [
-      source,
-      amount,
-      description,
-      incomeId,
-    ]);
+    //calling function from for services
+    const result = await putIncome(source, amount, description, incomeId);
 
     //calling get current balance function
     const currentBalance = await getCurrentBalance();
@@ -121,12 +100,8 @@ router.get("/:id", async (req, res) => {
   const incomeId = parseInt(req.params.id);
 
   try {
-    //sending a query and assigning variable
-    const result = await pool.query(
-      `SELECT * FROM income WHERE incomeid = $1`,
-      [incomeId]
-    );
-    //returning JSON
+    //calling function from for services
+    const result = await getIncomeById(incomeId);
     res.json(result.rows[0]);
   } catch (error) {
     //catch and log any errors
