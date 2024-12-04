@@ -8,6 +8,7 @@ const moneyInRoute = require("./routes/income");
 const moneyOutRoute = require("./routes/expenses");
 const supportRoute = require("./routes/support");
 const loginRoute = require("./routes/login");
+const contactRoute = require("./routes/contact");
 
 app.use(express.json()); //middleware to parse and handle json
 app.use(cors()); //enable cors for all routes
@@ -16,6 +17,7 @@ app.use("/income", moneyInRoute);
 app.use("/expenses", moneyOutRoute);
 app.use("/support", supportRoute);
 app.use("/login", loginRoute);
+app.use("/contact", contactRoute);
 
 app.get("/", (req, res) => {
   res.send("Welcome To Expense API");
