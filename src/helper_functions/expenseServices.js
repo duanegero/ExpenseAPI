@@ -1,5 +1,4 @@
 //setting variables to handle imports
-const express = require("express");
 const pool = require("../db");
 
 const getAllFromExpenses = async () => {
@@ -47,9 +46,17 @@ const getExpenseById = async (expenseId) => {
   return result;
 };
 
+const deleteExpenseById = async (expenseId) => {
+  const result = await pool.query(`DELETE FROM expense WHERE expenseid = $1`, [
+    expenseId,
+  ]);
+  return result;
+};
+
 module.exports = {
   getAllFromExpenses,
   postExpense,
   putExpense,
   getExpenseById,
+  deleteExpenseById,
 };

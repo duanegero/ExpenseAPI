@@ -8,6 +8,7 @@ const {
   postExpense,
   putExpense,
   getExpenseById,
+  deleteExpenseById,
 } = require("../helper_functions/expenseServices");
 
 //defining a route for GET URL
@@ -104,6 +105,27 @@ router.get("/:id", async (req, res) => {
   } catch (error) {
     //catch and log any errors
     console.log("ERROR", error);
+    res.status(500).json({ message: "Error" });
+  }
+});
+
+//defining a route for DELETE requests
+router.delete("/:id", async (req, res) => {
+  //getting the id from URL
+  const expenseId = parseInt(req.params.id);
+
+  try {
+    //calling function and passing in id from url
+    const result = await deleteExpenseById(expenseId);
+    //if result finds nothing return message
+    if (result.rowCount === 0) {
+      return res.status(404).json({ message: "Expense not found" });
+    }
+    //respond with ok and success message
+    res.status(200).json({ message: "Expense deleted", data: result.rows[0] });
+  } catch (error) {
+    //log any errors for troubleshoot
+    console.log("Error", error);
     res.status(500).json({ message: "Error" });
   }
 });

@@ -9,6 +9,7 @@ const {
   postIncome,
   putIncome,
   getIncomeById,
+  deleteIncomeById,
 } = require("../helper_functions/incomeServices");
 
 //defining a route for GET URL
@@ -94,7 +95,7 @@ router.put("/:id", async (req, res) => {
   }
 });
 
-//defining a route for GETT requests
+//defining a route for GET requests
 router.get("/:id", async (req, res) => {
   //parse the id from the URL
   const incomeId = parseInt(req.params.id);
@@ -106,6 +107,28 @@ router.get("/:id", async (req, res) => {
   } catch (error) {
     //catch and log any errors
     console.log("ERROR", error);
+    res.status(500).json({ message: "Error" });
+  }
+});
+
+//defining a route for DELETE requests
+router.delete("/:id", async (req, res) => {
+  //getting the id from URL
+  const incomeId = parseInt(req.params.id);
+
+  try {
+    //calling function and passing in id from url
+    const result = await deleteIncomeById(incomeId);
+
+    //if result finds nothing return message
+    if (result.rowCount === 0) {
+      return res.status(404).json({ message: "Income not found" });
+    }
+    //respond with ok and success message
+    res.status(200).json({ message: "Income deleted", data: result.rows[0] });
+  } catch (error) {
+    //log any errors for troubleshoot
+    console.log("Error", error);
     res.status(500).json({ message: "Error" });
   }
 });

@@ -1,4 +1,3 @@
-const express = require("express");
 const pool = require("../db");
 
 const getAllFromIncome = async () => {
@@ -46,4 +45,17 @@ const getIncomeById = async (incomeId) => {
   return result;
 };
 
-module.exports = { getAllFromIncome, postIncome, putIncome, getIncomeById };
+const deleteIncomeById = async (incomeId) => {
+  const result = await pool.query(`DELETE FROM income WHERE incomeid = $1`, [
+    incomeId,
+  ]);
+  return result;
+};
+
+module.exports = {
+  getAllFromIncome,
+  postIncome,
+  putIncome,
+  getIncomeById,
+  deleteIncomeById,
+};
