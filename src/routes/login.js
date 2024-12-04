@@ -10,28 +10,38 @@ const myKey = generateApiKey();
 console.log("Generated API Key: ", myKey);
 
 router.post("/", async (req, res) => {
+  //getting username and password from body
   const { username, password } = req.body;
 
+  //if no username or password return error
   if (!username || !password) {
     return res.status(400).json({ message: "Username and Password required" });
   }
 
+  //variablew to handle the query
   const query = `SELECT * FROM users
 WHERE username = $1 AND password = $2;`;
 
+  //start try catch
   try {
+    //sending query to database, assign to variable
     const result = await pool.query(query, [username, password]);
 
+    //if nothing found return invalid
     if (result.rows.length === 0) {
       return res.status(401).json({ message: "Invalid Username or Password" });
     }
 
+    //assgin returned result to variable
     const user = result.rows[0];
 
+    //create payload
     const payload = { userId: user.user_id };
 
+    //create toke with jwt, payload and key
     const token = jwt.sign(payload, myKey);
 
+    //responsed with token
     res.json(token);
   } catch (error) {
     //catch and log any errors
