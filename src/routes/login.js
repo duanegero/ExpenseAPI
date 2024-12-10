@@ -19,7 +19,7 @@ router.post("/", async (req, res) => {
   }
 
   //variablew to handle the query
-  const query = `SELECT * FROM users
+  const query = `SELECT * FROM support_staff
 WHERE username = $1 AND password = $2;`;
 
   //start try catch

@@ -9,6 +9,7 @@ const moneyOutRoute = require("./routes/expenses");
 const supportRoute = require("./routes/support");
 const loginRoute = require("./routes/login");
 const contactRoute = require("./routes/contact");
+const supportRequestsRoute = require("./routes/supportRequests");
 
 app.use(express.json()); //middleware to parse and handle json
 app.use(cors()); //enable cors for all routes
@@ -18,6 +19,7 @@ app.use("/expenses", moneyOutRoute);
 app.use("/support", supportRoute);
 app.use("/login", loginRoute);
 app.use("/contact", contactRoute);
+app.use("/supportRequest", supportRequestsRoute);
 
 app.get("/", (req, res) => {
   res.send("Welcome To Expense API");

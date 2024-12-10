@@ -46,6 +46,7 @@ const getIncomeById = async (incomeId) => {
 };
 
 const deleteIncomeById = async (incomeId) => {
+  //sending a query, making varible to handle, returning results
   const result = await pool.query(`DELETE FROM income WHERE incomeid = $1`, [
     incomeId,
   ]);

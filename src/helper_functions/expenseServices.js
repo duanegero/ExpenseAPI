@@ -47,12 +47,14 @@ const getExpenseById = async (expenseId) => {
 };
 
 const deleteExpenseById = async (expenseId) => {
+  //sending a query, making varible to handle, returning results
   const result = await pool.query(`DELETE FROM expense WHERE expenseid = $1`, [
     expenseId,
   ]);
   return result;
 };
 
+//exporting the functions to use else where
 module.exports = {
   getAllFromExpenses,
   postExpense,
