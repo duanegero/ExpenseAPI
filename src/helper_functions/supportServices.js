@@ -36,6 +36,7 @@ const deleteUserById = async (userId) => {
 };
 
 const postDeleteRequest = async (details) => {
+  //sending a query to database, assigning results to a variable
   const result = await pool.query(
     `INSERT INTO delete_new_user_requests(details) VALUES($1) RETURNING *`,
     [details]
@@ -44,6 +45,7 @@ const postDeleteRequest = async (details) => {
 };
 
 const postNewUserRequest = async (newUserName, newUserRole) => {
+  //sending a query to database, assigning results to a variable
   const result = await pool.query(
     `INSERT INTO delete_new_user_requests(new_name, new_role) VALUES($1, $2)`,
     [newUserName, newUserRole]
@@ -51,6 +53,21 @@ const postNewUserRequest = async (newUserName, newUserRole) => {
   return result;
 };
 
+const getAllRequest = async () => {
+  //sending a query to database, assigning results to a variable
+  const result = await pool.query(`SELECT * FROM delete_new_user_requests
+    ORDER BY request_id`);
+  return result;
+};
+
+const deleteRequest = async (requestId) => {
+  //sending a query to database, assigning results to a variable
+  const result = await pool.query(
+    `DELETE FROM delete_new_user_requests WHERE request_id = $1`,
+    [requestId]
+  );
+  return result;
+};
 //exporting functions to use else where
 module.exports = {
   postNewUser,
@@ -58,4 +75,6 @@ module.exports = {
   deleteUserById,
   postDeleteRequest,
   postNewUserRequest,
+  getAllRequest,
+  deleteRequest,
 };

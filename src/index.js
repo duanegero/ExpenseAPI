@@ -19,7 +19,7 @@ app.use("/expenses", moneyOutRoute);
 app.use("/support", supportRoute);
 app.use("/login", loginRoute);
 app.use("/contact", contactRoute);
-app.use("/supportRequest", supportRequestsRoute);
+app.use("/supportRequests", supportRequestsRoute);
 
 app.get("/", (req, res) => {
   res.send("Welcome To Expense API");

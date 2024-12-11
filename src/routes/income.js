@@ -11,6 +11,7 @@ const {
   getIncomeById,
   deleteIncomeById,
 } = require("../helper_functions/incomeServices");
+const verifyToken = require("../middleware/verifyToken");
 
 //defining a route for GET URL
 router.get("/", async (req, res) => {
@@ -82,6 +83,7 @@ router.put("/:id", async (req, res) => {
     //calling get current balance function
     const currentBalance = await getCurrentBalance();
 
+    //return json with success message
     res.status(200).json({
       message: "Updated successfully",
       updatedIncome: result.rows[0],
@@ -103,6 +105,7 @@ router.get("/:id", async (req, res) => {
   try {
     //calling function from for services
     const result = await getIncomeById(incomeId);
+    //respond json result
     res.json(result.rows[0]);
   } catch (error) {
     //catch and log any errors
@@ -112,7 +115,7 @@ router.get("/:id", async (req, res) => {
 });
 
 //defining a route for DELETE requests
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", verifyToken, async (req, res) => {
   //getting the id from URL
   const incomeId = parseInt(req.params.id);
 

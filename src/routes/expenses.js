@@ -10,6 +10,7 @@ const {
   getExpenseById,
   deleteExpenseById,
 } = require("../helper_functions/expenseServices");
+const verifyToken = require("../middleware/verifyToken");
 
 //defining a route for GET URL
 router.get("/", async (req, res) => {
@@ -17,7 +18,6 @@ router.get("/", async (req, res) => {
   try {
     //calling function from for services
     const result = await getAllFromExpenses();
-    // console.log(result.rows);
     const currentBalance = await getCurrentBalance();
 
     //return the JSON
@@ -110,7 +110,7 @@ router.get("/:id", async (req, res) => {
 });
 
 //defining a route for DELETE requests
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", verifyToken, async (req, res) => {
   //getting the id from URL
   const expenseId = parseInt(req.params.id);
 

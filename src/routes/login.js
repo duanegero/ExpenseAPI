@@ -3,7 +3,6 @@ const router = express.Router(); //creating a router variable to handle the rout
 const jwt = require("jsonwebtoken"); //importing jwt from npm
 const pool = require("../db");
 const { generateApiKey } = require("../helper_functions/generateApiKey"); //importing helper function
-const crypto = require("crypto"); //importing crypto to generate keys
 
 //calling function to generate, log for testing
 const myKey = generateApiKey();
@@ -36,13 +35,15 @@ WHERE username = $1 AND password = $2;`;
     const user = result.rows[0];
 
     //create payload
-    const payload = { userId: user.user_id };
+    console.log(user.support_id);
+    const payload = { userId: user.support_id };
 
     //create toke with jwt, payload and key
     const token = jwt.sign(payload, myKey);
 
     //responsed with token
     res.json(token);
+    console.log(token);
   } catch (error) {
     //catch and log any errors
     console.log("ERROR", error);
@@ -51,3 +52,4 @@ WHERE username = $1 AND password = $2;`;
 });
 
 module.exports = router;
+module.exports.myKey = myKey;
