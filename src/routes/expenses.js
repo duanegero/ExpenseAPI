@@ -10,7 +10,7 @@ const {
   getExpenseById,
   deleteExpenseById,
 } = require("../helper_functions/expenseServices");
-const verifyToken = require("../middleware/verifyToken");
+const verifyToken = require("../middleware/token");
 
 //defining a route for GET URL
 router.get("/", async (req, res) => {

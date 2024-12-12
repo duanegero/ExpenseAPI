@@ -8,7 +8,7 @@ const {
   getUser,
   deleteUserById,
 } = require("../helper_functions/supportServices");
-const verifyToken = require("../middleware/verifyToken");
+const verifyToken = require("../middleware/token");
 
 router.post("/add-user", verifyToken, async (req, res) => {
   //getting the username and password from the request body

@@ -1,7 +1,6 @@
 //setting variables to handle imports
 const express = require("express");
 const pool = require("../db");
-const { default: axios } = require("axios");
 const router = express.Router();
 const {
   postDeleteRequest,
@@ -9,7 +8,7 @@ const {
   getAllRequest,
   deleteRequest,
 } = require("../helper_functions/supportServices");
-const verifyToken = require("../middleware/verifyToken");
+const verifyToken = require("../middleware/token");
 
 //defining route for POST requests
 router.post("/", async (req, res) => {

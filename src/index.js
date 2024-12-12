@@ -14,6 +14,7 @@ const supportRequestsRoute = require("./routes/supportRequests");
 app.use(express.json()); //middleware to parse and handle json
 app.use(cors()); //enable cors for all routes
 
+//setting up rotuing for endpoints, linking them to correct ports
 app.use("/income", moneyInRoute);
 app.use("/expenses", moneyOutRoute);
 app.use("/support", supportRoute);

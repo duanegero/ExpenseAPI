@@ -11,7 +11,7 @@ const {
   getIncomeById,
   deleteIncomeById,
 } = require("../helper_functions/incomeServices");
-const verifyToken = require("../middleware/verifyToken");
+const verifyToken = require("../middleware/token");
 
 //defining a route for GET URL
 router.get("/", async (req, res) => {

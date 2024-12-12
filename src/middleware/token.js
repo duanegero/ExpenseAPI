@@ -13,5 +13,6 @@ const verifyToken = function (req, res, next) {
     res.status(401).json({ message: "Invalid Token" });
   }
 };
+
 //export to use else where
 module.exports = verifyToken;

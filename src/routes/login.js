@@ -2,11 +2,10 @@ const express = require("express"); //importing express from npm
 const router = express.Router(); //creating a router variable to handle the route
 const jwt = require("jsonwebtoken"); //importing jwt from npm
 const pool = require("../db");
-const { generateApiKey } = require("../helper_functions/generateApiKey"); //importing helper function
 
 //calling function to generate, log for testing
-const myKey = generateApiKey();
-console.log("Generated API Key: ", myKey);
+const myKey = process.env.API_KEY;
+console.log("API Key: ", myKey);
 
 router.post("/", async (req, res) => {
   //getting username and password from body
